@@ -1,0 +1,21 @@
+version: '3'
+services:
+  pna-web:
+    build: .
+    command: bash -c "bundle install && rm -f tmp/pids/server.pid && bundle exec rails s -p 3010 -b '0.0.0.0'"
+    env_file:
+      - .env.development
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+    networks:
+      - ocf_collab
+    ports:
+      - 3010:3010
+
+networks:
+  ocf_collab:
+    name: ocf_collab
+
+volumes:
+  bundle:
