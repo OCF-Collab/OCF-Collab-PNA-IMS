@@ -11,10 +11,6 @@ class CompetencyFrameworkFetcher
     response.body
   end
 
-  def content_type
-    response.headers["content-type"]
-  end
-
   def response
     @response ||= Faraday.get(framework_url).tap do |response|
       raise NotFoundError unless response.success?
@@ -22,6 +18,10 @@ class CompetencyFrameworkFetcher
   end
 
   def framework_url
-    id.gsub("resources", "graph")
+    id
+  end
+
+  def content_type
+    response.headers["content-type"]
   end
 end
